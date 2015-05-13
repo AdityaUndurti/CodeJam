@@ -27,15 +27,18 @@ int nFriends(int maxS, std::string attendees)
 		}
 	}
 
-	std::cout << " " << nFTotal << " ";
-	return nStanding;
+	std::cout << " " << nStanding << " ";
+	return nFTotal;
 }
 
 int main()
 {
-	std::string filename = "A-small-practice.in";
+	std::string filename = "A-large-practice.in";
 	
+	std::string outputname = "large-practice-output.txt";
+
 	std::ifstream inputFile(filename);
+	std::ofstream outputFile(outputname);
 
 	std::string line;
 		
@@ -63,11 +66,16 @@ int main()
 
 		std::getline(ss, item, ' ');
 
-		std::cout << nFriends(maxS, item) << std::endl;
+		int nF = nFriends(maxS, item);
+		std::cout << nF << std::endl;
 		
 		nLines++;
+
+		outputFile << "Case #" << nLines << ": " << nF << std::endl;
 	}
 
 	inputFile.close();
+	outputFile.close();
+
 	return 0;
 }
