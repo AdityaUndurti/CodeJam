@@ -3,6 +3,60 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#include <queue>
+
+class Node
+{
+	int depth;
+	std::vector<int> pi;
+
+public:
+	Node(int d = 0, std::vector<int> v = {})
+	{
+		depth = d;
+		pi = v;
+	}
+
+	int Depth()
+	{
+		return depth;
+	}
+	
+	std::vector<int> ReduceByOne()
+	{
+		std::vector<int> p2(pi);
+
+		for (int i = 0; i < p2.size(); i++)
+		{
+			if (p2[i] > 0)
+			{
+				p2[i] = p2[i] - 1;
+			}
+		}
+
+		return p2;
+	}
+
+	std::vector<int> CutMaxInHalf()
+	{
+		std::vector<int> c(pi);
+
+		int maxLocation;
+		maxLocation = std::distance(pi.begin(), std::max_element(pi.begin(), pi.end()));		
+		c[maxLocation] = pi[maxLocation] / 2;
+		c.push_back(pi[maxLocation] - c[maxLocation]);
+
+		return c;
+	}
+
+	void print()
+	{
+		for (int i = 0; i < pi.size(); i++)
+		{
+			std::cout << pi[i] << ' ';
+		}
+	}
+};
 
 void print(std::vector<int> v)
 {
@@ -12,8 +66,27 @@ void print(std::vector<int> v)
 	}
 }
 
+Node DoNothing(Node parent)
+{	
+	Node c(parent.Depth() + 1, parent.ReduceByOne());
+	return c;
+}
+
+Node BinarySplit(Node parent)
+{
+	Node c(parent.Depth() + 1, parent.CutMaxInHalf());
+	return c;
+}
+
 int ShallowestPath(int D, std::vector<int> Pi)
 {
+	Node parent(D, Pi);
+	Node firstChild = DoNothing(parent);
+	Node secondChild = BinarySplit(parent); 
+	std::cout << "Children: ";
+	firstChild.print();
+	std::cout << "; ";
+	secondChild.print();
 	return 0;
 }
 
@@ -56,7 +129,8 @@ int main()
 
 		std::cout << "Case #" << nLines << ": " << D << ", ";
 		print(Pi);
-		std::cout << "; " << ShallowestPath(D, Pi) << std::endl;
+		ShallowestPath(D, Pi);
+		std::cout << std::endl;
 	}
 
 	inputFile.close();
