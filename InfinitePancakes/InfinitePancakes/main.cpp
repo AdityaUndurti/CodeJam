@@ -78,15 +78,21 @@ Node BinarySplit(Node parent)
 	return c;
 }
 
-int ShallowestPath(int D, std::vector<int> Pi)
+std::queue<Node> q;
+
+int ShallowestPath(std::vector<int> Pi)
 {
-	Node parent(D, Pi);
+	Node root(0, Pi);
+	q.push(root);
+
+	Node parent = q.front();
 	Node firstChild = DoNothing(parent);
 	Node secondChild = BinarySplit(parent); 
-	std::cout << "Children: ";
-	firstChild.print();
-	std::cout << "; ";
-	secondChild.print();
+
+	q.pop();
+	q.push(firstChild);
+	q.push(secondChild);
+
 	return 0;
 }
 
@@ -129,7 +135,7 @@ int main()
 
 		std::cout << "Case #" << nLines << ": " << D << ", ";
 		print(Pi);
-		ShallowestPath(D, Pi);
+		ShallowestPath(Pi);
 		std::cout << std::endl;
 	}
 
