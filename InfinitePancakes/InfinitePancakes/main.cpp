@@ -49,6 +49,19 @@ public:
 		return c;
 	}
 
+	bool IsEmpty()
+	{
+		for (int i = 0; i < pi.size(); i++)
+		{
+			if (pi[i] > 0)
+			{
+				return false;
+			}
+		}
+
+		return true;
+	}
+
 	void print()
 	{
 		for (int i = 0; i < pi.size(); i++)
@@ -79,23 +92,40 @@ Node BinarySplit(Node parent)
 }
 
 std::queue<Node> q;
+bool found = false;
 
-int ShallowestPath(std::vector<int> Pi)
-{
-	Node root(0, Pi);
-	q.push(root);
-
+int ShallowestPath()
+{	
 	Node parent = q.front();
 	Node firstChild = DoNothing(parent);
 	Node secondChild = BinarySplit(parent); 
 
+	if (firstChild.IsEmpty())
+	{
+		found = true;
+		return firstChild.Depth();
+	}
+
+	if (secondChild.IsEmpty())
+	{
+		found = true;
+		return secondChild.Depth();
+	}
+	
 	q.pop();
 	q.push(firstChild);
 	q.push(secondChild);
 
-	return 0;
+	return ShallowestPath();
 }
 
+void EmptyQueue()
+{
+	while (!q.empty())
+	{
+		q.pop();
+	}
+}
 int main()
 {
 	std::string filename = "B-small-practice.in";
@@ -119,6 +149,7 @@ int main()
 	int nLines = 0;
 	while (nLines < nCases)
 	{
+		EmptyQueue();
 		std::getline(inputFile, line);
 		
 		int D = std::stoi(line);
@@ -135,8 +166,9 @@ int main()
 
 		std::cout << "Case #" << nLines << ": " << D << ", ";
 		print(Pi);
-		ShallowestPath(Pi);
-		std::cout << std::endl;
+		Node root(0, Pi);
+		q.push(root);
+		std::cout << "; Solution: " << ShallowestPath() << std::endl;
 	}
 
 	inputFile.close();
