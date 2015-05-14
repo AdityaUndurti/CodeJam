@@ -5,132 +5,50 @@
 #include <vector>
 #include <queue>
 
-class Node
+
+int Solve(int D, std::vector<int> pi)
 {
-	int depth;
-	std::vector<int> pi;
+	int min = 1001;
 
-public:
-	Node(int d = 0, std::vector<int> v = {})
+	for (int maxStack = 1; maxStack < 1001; maxStack++)
 	{
-		depth = d;
-		pi = v;
-	}
+		int nMoves = 0;
 
-	int Depth()
-	{
-		return depth;
-	}
-	
-	std::vector<int> ReduceByOne()
-	{
-		std::vector<int> p2(pi);
-
-		for (int i = 0; i < p2.size(); i++)
+		for (int i = 0; i < (int)pi.size(); i++)
 		{
-			if (p2[i] > 0)
+			int nPlatesToMove = pi[i] - maxStack;
+
+			if (nPlatesToMove > 0)
 			{
-				p2[i] = p2[i] - 1;
+				// Divide and then round up
+				nMoves += nPlatesToMove / maxStack + (nPlatesToMove % maxStack != 0);
 			}
 		}
 
-		return p2;
-	}
+		nMoves = nMoves + maxStack;
 
-	std::vector<int> CutMaxInHalf()
-	{
-		std::vector<int> c(pi);
-
-		int maxLocation;
-		maxLocation = std::distance(pi.begin(), std::max_element(pi.begin(), pi.end()));		
-		c[maxLocation] = pi[maxLocation] / 2;
-		c.push_back(pi[maxLocation] - c[maxLocation]);
-
-		return c;
-	}
-
-	bool IsEmpty()
-	{
-		for (int i = 0; i < pi.size(); i++)
+		if (nMoves < min)
 		{
-			if (pi[i] > 0)
-			{
-				return false;
-			}
-		}
-
-		return true;
-	}
-
-	void print()
-	{
-		for (int i = 0; i < pi.size(); i++)
-		{
-			std::cout << pi[i] << ' ';
+			min = nMoves;
 		}
 	}
-};
+
+	return min;
+}
 
 void print(std::vector<int> v)
 {
-	for (int i = 0; i < v.size(); i++)
+	for (int i = 0; i < (int)v.size(); i++)
 	{
 		std::cout << v[i] << ' ';
 	}
 }
 
-Node DoNothing(Node parent)
-{	
-	Node c(parent.Depth() + 1, parent.ReduceByOne());
-	return c;
-}
-
-Node BinarySplit(Node parent)
-{
-	Node c(parent.Depth() + 1, parent.CutMaxInHalf());
-	return c;
-}
-
-std::queue<Node> q;
-bool found = false;
-
-int ShallowestPath()
-{	
-	Node parent = q.front();
-	Node firstChild = DoNothing(parent);
-	Node secondChild = BinarySplit(parent); 
-
-	if (firstChild.IsEmpty())
-	{
-		found = true;
-		return firstChild.Depth();
-	}
-
-	if (secondChild.IsEmpty())
-	{
-		found = true;
-		return secondChild.Depth();
-	}
-	
-	q.pop();
-	q.push(firstChild);
-	q.push(secondChild);
-
-	return ShallowestPath();
-}
-
-void EmptyQueue()
-{
-	while (!q.empty())
-	{
-		q.pop();
-	}
-}
 int main()
 {
-	std::string filename = "B-small-practice.in";
+	std::string filename = "B-large-practice.in";
 
-	std::string outputname = "B-small-practice-output.txt";
+	std::string outputname = "B-large-practice-output.txt";
 
 	std::ifstream inputFile(filename);
 	std::ofstream outputFile(outputname);
@@ -148,8 +66,7 @@ int main()
 
 	int nLines = 0;
 	while (nLines < nCases)
-	{
-		EmptyQueue();
+	{		
 		std::getline(inputFile, line);
 		
 		int D = std::stoi(line);
@@ -166,9 +83,12 @@ int main()
 
 		std::cout << "Case #" << nLines << ": " << D << ", ";
 		print(Pi);
-		Node root(0, Pi);
-		q.push(root);
-		std::cout << "; Solution: " << ShallowestPath() << std::endl;
+		
+		int s = Solve(D, Pi);
+
+		std::cout << "; Solution: " << s << std::endl;
+
+		outputFile << "Case #" << nLines << ": " << s << std::endl;
 	}
 
 	inputFile.close();
