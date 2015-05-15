@@ -90,47 +90,47 @@ element Reduce(std::string c)
 	return reduced;
 }
 
-int ReduceToI(std::string c)
+bool ReduceToI(std::string c)
 {	
 	std::cout << "i string: " << c << std::endl;
 
 	element reduced = Reduce(c);
 
-	if (reduced.value == 'i')
+	if (reduced.value == 'i' && reduced.sign == 1)
 	{
-		return reduced.sign;
+		return true;
 	}
 	
-	return 0;
+	return false;
 }
 
 
-int ReduceToJ(std::string c)
+bool ReduceToJ(std::string c)
 {
 	std::cout << "j string: " << c << std::endl;
 
 	element reduced = Reduce(c);
 	
-	if (reduced.value == 'j')
+	if (reduced.value == 'j' && reduced.sign == 1)
 	{
-		return reduced.sign;
+		return true;
 	}
 
-	return 0;
+	return false;
 }
 
-int ReduceToK(std::string c)
+bool ReduceToK(std::string c)
 {
 	std::cout << "k string: " << c << std::endl;
 
 	element reduced = Reduce(c);
 
-	if (reduced.value == 'k')
+	if (reduced.value == 'k' && reduced.sign == 1)
 	{
-		return reduced.sign;
+		return true;
 	}
 
-	return 0;
+	return false;
 }
 
 bool Solve(std::string c)
@@ -139,35 +139,20 @@ bool Solve(std::string c)
 	{
 		std::string iString = c.substr(0, i);
 
-		int signi = ReduceToI(iString);
-
-		if (signi != 0)
+		if (ReduceToI(iString))
 		{
 			for (size_t j = i; j < c.size() - 1; j++)
 			{
-				std::string jString = c.substr(i + 1, j - i - 1);
+				std::string jString = c.substr(i, j - i);
 
-				int signj = ReduceToJ(jString);
-
-				if (signj != 0)
+				if (ReduceToJ(jString))
 				{
-					for (size_t k = j; k < c.size(); k++)
+					std::string kString = c.substr(j, c.size() - j);
+					
+					if (ReduceToK(kString))
 					{
-						std::string kString = c.substr(j + 1, k - j - 1);
-
-						int signk = ReduceToK(kString);
-
-						if (signk != 0)
-						{
-							std::cout << "Checking for sign..." << std::endl;
-
-							if (signi * signj * signk == 1)
-							{								
-								return true;
-							}
-						}
-
-					}
+						return true;							
+					}					
 				}
 			}
 
