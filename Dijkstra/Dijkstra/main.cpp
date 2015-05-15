@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string>
 #include <algorithm>
+#include <sstream>
 
 struct element
 {
@@ -135,13 +136,13 @@ bool ReduceToK(std::string c)
 
 bool Solve(std::string c)
 {
-	for (size_t i = 1; i < c.size() - 2; i++)
+	for (size_t i = 1; i < c.size() - 1; i++)
 	{
 		std::string iString = c.substr(0, i);
 
 		if (ReduceToI(iString))
 		{
-			for (size_t j = i; j < c.size() - 1; j++)
+			for (size_t j = i; j < c.size(); j++)
 			{
 				std::string jString = c.substr(i, j - i);
 
@@ -164,17 +165,52 @@ bool Solve(std::string c)
 
 int main()
 {
-	int L = 2;
-	int X = 6;
-	std::string line = "ji";
+	std::string filename = "C-small-practice.in";
 
-	std::string expanded = "";
+	std::string outputname = "C-small-practice-output.txt";
 
-	for (int x = 0; x < X; x++)
+	std::ifstream inputFile(filename);
+	std::ofstream outputFile(outputname);
+
+	std::string line;
+
+	int nCases = 0;
+
+	if (inputFile.is_open())
 	{
-		expanded += line;
+		std::getline(inputFile, line);
+		nCases = std::stoi(line);
+		std::cout << nCases << std::endl;
 	}
 
-	std::cout << expanded << "; " << Solve(expanded) << std::endl;
+	int iCase = 0;
+	std::string item;
+
+	while (iCase < nCases)
+	{
+		std::getline(inputFile, line);
+		std::stringstream ss(line);
+		std::getline(ss, item, ' ');
+		int L = std::stoi(item);
+		std::getline(ss, item, ' ');
+		int X = std::stoi(item);
+
+		std::getline(inputFile, line);
+
+		std::string expanded = "";
+
+		for (int x = 0; x < X; x++)
+		{
+			expanded += line;
+		}
+
+		std::cout << expanded << "; " << Solve(expanded) << std::endl;
+
+		iCase++;
+	}
+
+	inputFile.close();
+	outputFile.close();
+
 	return 0;
 }
