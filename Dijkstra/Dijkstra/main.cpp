@@ -92,9 +92,7 @@ element Reduce(std::string c)
 }
 
 bool ReduceToI(std::string c)
-{	
-	std::cout << "i string: " << c << std::endl;
-
+{
 	element reduced = Reduce(c);
 
 	if (reduced.value == 'i' && reduced.sign == 1)
@@ -108,8 +106,6 @@ bool ReduceToI(std::string c)
 
 bool ReduceToJ(std::string c)
 {
-	std::cout << "j string: " << c << std::endl;
-
 	element reduced = Reduce(c);
 	
 	if (reduced.value == 'j' && reduced.sign == 1)
@@ -122,8 +118,6 @@ bool ReduceToJ(std::string c)
 
 bool ReduceToK(std::string c)
 {
-	std::cout << "k string: " << c << std::endl;
-
 	element reduced = Reduce(c);
 
 	if (reduced.value == 'k' && reduced.sign == 1)
@@ -134,8 +128,26 @@ bool ReduceToK(std::string c)
 	return false;
 }
 
+bool ReduceToMinus1(std::string c)
+{
+	element reduced = Reduce(c);
+
+	if (reduced.value == '\0' && reduced.sign == -1)
+	{
+		return true;
+	}
+
+	return false;
+}
+
 bool Solve(std::string c)
 {
+
+	if (!ReduceToMinus1(c))
+	{
+		return false;
+	}
+
 	for (size_t i = 1; i < c.size() - 1; i++)
 	{
 		std::string iString = c.substr(0, i);
@@ -204,7 +216,7 @@ int main()
 			expanded += line;
 		}
 
-		std::cout << expanded << "; " << Solve(expanded) << std::endl;
+		std::cout << "Case #" << iCase <<": " << Solve(expanded) << std::endl;
 
 		iCase++;
 	}
