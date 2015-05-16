@@ -140,12 +140,30 @@ bool ReduceToMinus1(std::string c)
 	return false;
 }
 
-bool Solve(std::string c)
+bool Solve(double L, double X, std::string line)
 {
+	if (L <= 1)
+	{
+		return false;
+	}
+
+	std::string c = "";
+	
+	for (double x = 0; x < X; x++)
+	{
+		c += line;
+	}
 
 	if (!ReduceToMinus1(c))
 	{
-		return false;
+		return false;	
+	}
+
+	c = "";
+	
+	for (double x = 0; x < X; x++)
+	{
+		c += line;
 	}
 
 	for (size_t i = 1; i < c.size() - 1; i++)
@@ -160,12 +178,7 @@ bool Solve(std::string c)
 
 				if (ReduceToJ(jString))
 				{
-					std::string kString = c.substr(j, c.size() - j);
-					
-					if (ReduceToK(kString))
-					{
-						return true;							
-					}					
+					return true;												
 				}
 			}
 
@@ -200,23 +213,30 @@ int main()
 
 	while (iCase < nCases)
 	{
-		std::getline(inputFile, line);
+		std::getline(inputFile, line);		
 		std::stringstream ss(line);
 		std::getline(ss, item, ' ');
-		int L = std::stoi(item);
+		
+		double L = std::stod(item);
 		std::getline(ss, item, ' ');
-		int X = std::stoi(item);
-
+		
+		double X = std::stod(item);
+		
 		std::getline(inputFile, line);
+		
+		std::cout << "Case #" << iCase + 1 << std::endl;
+		outputFile << "Case #" << iCase + 1 << ": ";
+		bool sol = Solve(L, X, line);
 
-		std::string expanded = "";
-
-		for (int x = 0; x < X; x++)
+		if (sol)
 		{
-			expanded += line;
+			outputFile << "YES" << std::endl;
 		}
-
-		std::cout << "Case #" << iCase <<": " << Solve(expanded) << std::endl;
+		else
+		{
+			outputFile << "NO" << std::endl;
+		}
+		
 
 		iCase++;
 	}
