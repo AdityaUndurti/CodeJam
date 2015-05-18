@@ -3,212 +3,14 @@
 #include <string>
 #include <algorithm>
 #include <sstream>
-
-struct element
-{
-	int sign;
-	char value;
-};
-
-
-element Multiply(element a, element b)
-{
-	element c;
-
-	if (a.value == '\0')
-	{
-		c.value = b.value;
-		c.sign = a.sign*b.sign;
-	}
-
-	if (b.value == '\0')
-	{
-		c.value = a.value;
-		c.sign = a.sign*b.sign;
-	}
-
-	// cases where a == b (i,j,k)
-	if (a.value == b.value)
-	{
-		c.value = '\0';
-		c.sign = -1 * a.sign * b.sign;		
-	}
-	
-	if (a.value == 'i' && b.value == 'j')
-	{
-		c.value = 'k';
-		c.sign = a.sign * b.sign;
-	}
-
-	if (a.value == 'i' && b.value == 'k')
-	{
-		c.value = 'j';
-		c.sign = -1 * a.sign * b.sign;
-	}
-
-	if (a.value == 'j' && b.value == 'k')
-	{
-		c.value = 'i';
-		c.sign = a.sign * b.sign;
-	}
-
-	if (a.value == 'j' && b.value == 'i')
-	{
-		c.value = 'k';
-		c.sign = -1 * a.sign * b.sign;
-	}
-
-	if (a.value == 'k' && b.value == 'i')
-	{
-		c.value = 'j';
-		c.sign = a.sign * b.sign;
-	}
-
-	if (a.value == 'k' && b.value == 'j')
-	{
-		c.value = 'i';
-		c.sign = -1 * a.sign * b.sign;
-	}
-
-	return c;
-}
-
-element Reduce(std::string c)
-{
-	element reduced;
-	reduced.sign = 1;
-	reduced.value = '\0';
-
-	for (size_t i = 0; i < c.size(); i++)
-	{
-		element current;
-		current.sign = 1;
-		current.value = c[i];
-
-		reduced = Multiply(reduced, current);
-	}
-	
-	return reduced;
-}
-
-bool ReduceToI(std::string c)
-<<<<<<< HEAD
-{	
-	//std::cout << "i string: " << c << std::endl;
-
-=======
-{
->>>>>>> origin/master
-	element reduced = Reduce(c);
-
-	if (reduced.value == 'i' && reduced.sign == 1)
-	{
-		return true;
-	}
-	
-	return false;
-}
-
-
-bool ReduceToJ(std::string c)
-{
-<<<<<<< HEAD
-	//std::cout << "j string: " << c << std::endl;
-
-=======
->>>>>>> origin/master
-	element reduced = Reduce(c);
-	
-	if (reduced.value == 'j' && reduced.sign == 1)
-	{
-		return true;
-	}
-
-	return false;
-}
-
-bool ReduceToK(std::string c)
-{
-<<<<<<< HEAD
-	//std::cout << "k string: " << c << std::endl;
-
-=======
->>>>>>> origin/master
-	element reduced = Reduce(c);
-
-	if (reduced.value == 'k' && reduced.sign == 1)
-	{
-		return true;
-	}
-
-	return false;
-}
-
-bool ReduceToMinus1(std::string c)
-{
-	element reduced = Reduce(c);
-
-	if (reduced.value == '\0' && reduced.sign == -1)
-	{
-		return true;
-	}
-
-	return false;
-}
-
-bool Solve(double L, double X, std::string line)
-{
-	if (L <= 1)
-	{
-		return false;
-	}
-
-	std::string c = "";
-	
-	for (double x = 0; x < X; x++)
-	{
-		c += line;
-	}
-
-	if (!ReduceToMinus1(c))
-	{
-		return false;	
-	}
-
-	c = "";
-	
-	for (double x = 0; x < X; x++)
-	{
-		c += line;
-	}
-
-	for (size_t i = 1; i < c.size() - 1; i++)
-	{
-		std::string iString = c.substr(0, i);
-
-		if (ReduceToI(iString))
-		{
-			for (size_t j = i; j < c.size(); j++)
-			{
-				std::string jString = c.substr(i, j - i);
-
-				if (ReduceToJ(jString))
-				{
-					return true;												
-				}
-			}
-
-		}
-	}
-
-	return false;
-}
+#include "large.h"
+#include "small.h"
 
 int main()
 {
 	std::string filename = "C-small-practice.in";
 
-	std::string outputname = "C-small-practice-output.txt";
+	std::string outputname = "C-large-practice-output.txt";
 
 	std::ifstream inputFile(filename);
 	std::ofstream outputFile(outputname);
@@ -242,7 +44,7 @@ int main()
 		
 		std::cout << "Case #" << iCase + 1 << std::endl;
 		outputFile << "Case #" << iCase + 1 << ": ";
-		bool sol = Solve(L, X, line);
+		bool sol = SolveLargeProblem(L, X, line);
 
 		if (sol)
 		{
