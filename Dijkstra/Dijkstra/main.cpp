@@ -93,7 +93,7 @@ element Reduce(std::string c)
 
 bool ReduceToI(std::string c)
 {	
-	std::cout << "i string: " << c << std::endl;
+	//std::cout << "i string: " << c << std::endl;
 
 	element reduced = Reduce(c);
 
@@ -108,7 +108,7 @@ bool ReduceToI(std::string c)
 
 bool ReduceToJ(std::string c)
 {
-	std::cout << "j string: " << c << std::endl;
+	//std::cout << "j string: " << c << std::endl;
 
 	element reduced = Reduce(c);
 	
@@ -122,7 +122,7 @@ bool ReduceToJ(std::string c)
 
 bool ReduceToK(std::string c)
 {
-	std::cout << "k string: " << c << std::endl;
+	//std::cout << "k string: " << c << std::endl;
 
 	element reduced = Reduce(c);
 
