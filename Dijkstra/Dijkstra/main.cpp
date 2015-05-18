@@ -92,9 +92,13 @@ element Reduce(std::string c)
 }
 
 bool ReduceToI(std::string c)
+<<<<<<< HEAD
 {	
 	//std::cout << "i string: " << c << std::endl;
 
+=======
+{
+>>>>>>> origin/master
 	element reduced = Reduce(c);
 
 	if (reduced.value == 'i' && reduced.sign == 1)
@@ -108,8 +112,11 @@ bool ReduceToI(std::string c)
 
 bool ReduceToJ(std::string c)
 {
+<<<<<<< HEAD
 	//std::cout << "j string: " << c << std::endl;
 
+=======
+>>>>>>> origin/master
 	element reduced = Reduce(c);
 	
 	if (reduced.value == 'j' && reduced.sign == 1)
@@ -122,8 +129,11 @@ bool ReduceToJ(std::string c)
 
 bool ReduceToK(std::string c)
 {
+<<<<<<< HEAD
 	//std::cout << "k string: " << c << std::endl;
 
+=======
+>>>>>>> origin/master
 	element reduced = Reduce(c);
 
 	if (reduced.value == 'k' && reduced.sign == 1)
@@ -134,8 +144,44 @@ bool ReduceToK(std::string c)
 	return false;
 }
 
-bool Solve(std::string c)
+bool ReduceToMinus1(std::string c)
 {
+	element reduced = Reduce(c);
+
+	if (reduced.value == '\0' && reduced.sign == -1)
+	{
+		return true;
+	}
+
+	return false;
+}
+
+bool Solve(double L, double X, std::string line)
+{
+	if (L <= 1)
+	{
+		return false;
+	}
+
+	std::string c = "";
+	
+	for (double x = 0; x < X; x++)
+	{
+		c += line;
+	}
+
+	if (!ReduceToMinus1(c))
+	{
+		return false;	
+	}
+
+	c = "";
+	
+	for (double x = 0; x < X; x++)
+	{
+		c += line;
+	}
+
 	for (size_t i = 1; i < c.size() - 1; i++)
 	{
 		std::string iString = c.substr(0, i);
@@ -148,12 +194,7 @@ bool Solve(std::string c)
 
 				if (ReduceToJ(jString))
 				{
-					std::string kString = c.substr(j, c.size() - j);
-					
-					if (ReduceToK(kString))
-					{
-						return true;							
-					}					
+					return true;												
 				}
 			}
 
@@ -188,23 +229,30 @@ int main()
 
 	while (iCase < nCases)
 	{
-		std::getline(inputFile, line);
+		std::getline(inputFile, line);		
 		std::stringstream ss(line);
 		std::getline(ss, item, ' ');
-		int L = std::stoi(item);
+		
+		double L = std::stod(item);
 		std::getline(ss, item, ' ');
-		int X = std::stoi(item);
-
+		
+		double X = std::stod(item);
+		
 		std::getline(inputFile, line);
+		
+		std::cout << "Case #" << iCase + 1 << std::endl;
+		outputFile << "Case #" << iCase + 1 << ": ";
+		bool sol = Solve(L, X, line);
 
-		std::string expanded = "";
-
-		for (int x = 0; x < X; x++)
+		if (sol)
 		{
-			expanded += line;
+			outputFile << "YES" << std::endl;
 		}
-
-		std::cout << expanded << "; " << Solve(expanded) << std::endl;
+		else
+		{
+			outputFile << "NO" << std::endl;
+		}
+		
 
 		iCase++;
 	}
