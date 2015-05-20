@@ -49,7 +49,7 @@ bool ReduceToMinus1(std::string c)
 	return false;
 }
 
-bool SolveSmallProblem(double L, double X, std::string line)
+bool SolveSmallProblem(long L, long X, std::string line)
 {
 	if (L <= 1)
 	{
@@ -58,7 +58,7 @@ bool SolveSmallProblem(double L, double X, std::string line)
 
 	std::string c = "";
 
-	for (double x = 0; x < X; x++)
+	for (long x = 0; x < X; x++)
 	{
 		c += line;
 	}
@@ -70,7 +70,7 @@ bool SolveSmallProblem(double L, double X, std::string line)
 
 	c = "";
 
-	for (double x = 0; x < X; x++)
+	for (long x = 0; x < X; x++)
 	{
 		c += line;
 	}

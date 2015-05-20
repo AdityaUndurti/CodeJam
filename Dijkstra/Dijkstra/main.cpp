@@ -8,7 +8,7 @@
 
 int main()
 {
-	std::string filename = "C-small-practice.in";
+	std::string filename = "C-test.in";
 
 	std::string outputname = "C-large-practice-output.txt";
 
@@ -35,10 +35,10 @@ int main()
 		std::stringstream ss(line);
 		std::getline(ss, item, ' ');
 		
-		double L = std::stod(item);
+		long L = std::stol(item);
 		std::getline(ss, item, ' ');
 		
-		double X = std::stod(item);
+		long X = std::stol(item);
 		
 		std::getline(inputFile, line);
 		

@@ -5,4 +5,4 @@
 #include <sstream>
 #include "common.h"
 
-bool SolveSmallProblem(double L, double X, std::string line);
+bool SolveSmallProblem(long L, long X, std::string line);

@@ -5,15 +5,17 @@ element Multiply(element a, element b)
 	element c;
 
 	if (a.value == '\0')
-	{
+	{		
 		c.value = b.value;
-		c.sign = a.sign*b.sign;
+		c.sign = a.sign*b.sign;		
+		return c;
 	}
 
 	if (b.value == '\0')
 	{
 		c.value = a.value;
 		c.sign = a.sign*b.sign;
+		return c;
 	}
 
 	// cases where a == b (i,j,k)
@@ -21,45 +23,50 @@ element Multiply(element a, element b)
 	{
 		c.value = '\0';
 		c.sign = -1 * a.sign * b.sign;
+		return c;
 	}
 
 	if (a.value == 'i' && b.value == 'j')
 	{
 		c.value = 'k';
 		c.sign = a.sign * b.sign;
+		return c;
 	}
 
 	if (a.value == 'i' && b.value == 'k')
 	{
 		c.value = 'j';
 		c.sign = -1 * a.sign * b.sign;
+		return c;
 	}
 
 	if (a.value == 'j' && b.value == 'k')
 	{
 		c.value = 'i';
 		c.sign = a.sign * b.sign;
+		return c;
 	}
 
 	if (a.value == 'j' && b.value == 'i')
 	{
 		c.value = 'k';
 		c.sign = -1 * a.sign * b.sign;
+		return c;
 	}
 
 	if (a.value == 'k' && b.value == 'i')
 	{
 		c.value = 'j';
 		c.sign = a.sign * b.sign;
+		return c;
 	}
 
 	if (a.value == 'k' && b.value == 'j')
 	{
 		c.value = 'i';
 		c.sign = -1 * a.sign * b.sign;
+		return c;
 	}
-
-	return c;
 }
 
 element Reduce(std::string c)
@@ -78,4 +85,16 @@ element Reduce(std::string c)
 	}
 
 	return reduced;
+}
+
+void Print(element a)
+{
+	std::cout << "{";
+	if (a.sign < 0)
+	{
+		std::cout << "-";
+	}
+
+	std::cout << a.value << "}";
+	return;
 }

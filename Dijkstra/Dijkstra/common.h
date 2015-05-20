@@ -14,6 +14,7 @@ struct element
 
 element Multiply(element a, element b);
 element Reduce(std::string c);
+void Print(element a);
 
 #define COMMON
 #endif
