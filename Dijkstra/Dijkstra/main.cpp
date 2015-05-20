@@ -8,7 +8,7 @@
 
 int main()
 {
-	std::string filename = "C-test.in";
+	std::string filename = "C-large-practice.in";
 
 	std::string outputname = "C-large-practice-output.txt";
 
@@ -28,17 +28,18 @@ int main()
 
 	int iCase = 0;
 	std::string item;
-
+		
 	while (iCase < nCases)
 	{
 		std::getline(inputFile, line);		
 		std::stringstream ss(line);
 		std::getline(ss, item, ' ');
 		
-		long L = std::stol(item);
+		long long L = std::stoll(item);
+		
 		std::getline(ss, item, ' ');
 		
-		long X = std::stol(item);
+		long long X = std::stoll(item);
 		
 		std::getline(inputFile, line);
 		
