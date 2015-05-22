@@ -10,7 +10,7 @@ int main()
 {
 	std::string filename = "C-large-practice.in";
 
-	std::string outputname = "C-large-practice-output.txt";
+	std::string outputname = "C-large-practice-test.txt";
 
 	std::ifstream inputFile(filename);
 	std::ofstream outputFile(outputname);

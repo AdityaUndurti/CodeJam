@@ -1,5 +1,30 @@
 #include "common.h"
 
+element operator*(element a, element b)
+{
+	return Multiply(a, b);
+}
+
+bool element::operator==(element b)
+{
+	return (sign == b.sign) && (value == b.value);
+}
+
+bool element::operator==(char b)
+{
+	return (sign == 1) && (value == b);
+}
+
+bool element::operator==(int i)
+{
+	return (sign == i) && (value == '\0');
+}
+
+bool element::operator!=(int i)
+{
+	return (sign != i) || (value != '\0');
+}
+
 element Multiply(element a, element b)
 {
 	element c;
