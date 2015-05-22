@@ -1,0 +1,1 @@
+bool Solve(int X, int R, int C);
