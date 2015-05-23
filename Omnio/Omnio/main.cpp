@@ -42,11 +42,9 @@ int main()
 
 		std::getline(ss, item, ' ');
 
-		int C = std::stoi(item);
+		int C = std::stoi(item);		
 
-		std::getline(inputFile, line);
-
-		std::cout << "Case #" << iCase + 1 << std::endl;
+		std::cout << "Case #" << iCase + 1 << "; " << X << ", " << R << ", " << C << std::endl;
 		outputFile << "Case #" << iCase + 1 << ": ";
 		bool sol = Solve(X, R, C);
 
