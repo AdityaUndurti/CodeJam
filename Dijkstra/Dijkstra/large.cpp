@@ -6,16 +6,14 @@ bool SolveLargeProblem(long long L, long long X, std::string line)
 	
 	element t;	
 
-	long minX = std::min(X, (long long)4);
+	long minX = (long)std::min(X, (long long)4);
 
-	for (long x = 0; x < minX; x++)
+	for (long l = 0; l < L; l++)
 	{
-		for (long l = 0; l < L; l++)
-		{
-			element in(line[l]);			
-			input.push_back(in);
-		}
+		element in(line[l]);			
+		input.push_back(in);
 	}
+	
 
 	int modX = X % 4;	
 	element all;
@@ -42,11 +40,11 @@ bool SolveLargeProblem(long long L, long long X, std::string line)
 		
 		if (cumulative == 'i')
 		{			
-			int maxIndex = std::min((long)x + minX*L, L*X);			
+			int maxIndex = (int)std::min((long)x + minX*L, L*X);			
 
 			element j_accumulator;
 			
-			for (size_t y = x + 1; y < maxIndex; y++)
+			for (int y = x + 1; y < maxIndex; y++)
 			{
 				int j = y % L;
 				j_accumulator = j_accumulator*input[j];

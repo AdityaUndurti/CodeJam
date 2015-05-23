@@ -17,7 +17,7 @@ bool Solve(int X, int R, int C)
 		return true;
 	}
 
-	if (X >= 3 && (X - R <= 2 || X - C <= 2))
+	if (X >= 3 && (R <= 2 || C <= 2))
 	{
 		return true;
 	}
