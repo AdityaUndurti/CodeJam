@@ -7,9 +7,9 @@
 
 int main()
 {
-	std::string filename = "D-small-practice.in";
+	std::string filename = "D-large-practice.in";
 
-	std::string outputname = "D-small-practice.txt";
+	std::string outputname = "D-large-practice.txt";
 
 	std::ifstream inputFile(filename);
 	std::ofstream outputFile(outputname);
@@ -44,16 +44,18 @@ int main()
 
 		int C = std::stoi(item);		
 
-		std::cout << "Case #" << iCase + 1 << "; " << X << ", " << R << ", " << C << std::endl;
+		std::cout << "Case #" << iCase + 1 << "; " << X << ", " << R << ", " << C << ": ";
 		outputFile << "Case #" << iCase + 1 << ": ";
 		bool sol = Solve(X, R, C);
 
 		if (sol)
 		{
+			std::cout << "RICHARD" << std::endl;
 			outputFile << "RICHARD" << std::endl;
 		}
 		else
 		{
+			std::cout << "GABRIEL" << std::endl;
 			outputFile << "GABRIEL" << std::endl;
 		}
 
